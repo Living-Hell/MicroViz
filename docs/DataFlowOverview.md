@@ -10,8 +10,8 @@ How will your microservices interact with our tool?
 
 ```json
 {
-  "service_a": "AuthService",
-  "service_b": "UserService",
+  "service_1": "AuthService",
+  "service_2": "UserService",
   "method": "CALL"
 }
 ```
@@ -27,8 +27,8 @@ How will your microservices interact with our tool?
 POST /api/track
 Content-Type: application/json
 {
-  "service_a": "AuthService",
-  "service_b": "UserService",
+  "service_1": "AuthService",
+  "service_2": "UserService",
   "method": "CALL"
 }
 ```
@@ -49,14 +49,14 @@ GET /api/dependencies
 ```json
 [
   {
-    "service_a": "AuthService",
-    "service_b": "UserService",
+    "service_1": "AuthService",
+    "service_2": "UserService",
     "method": "CALL",
     "timestamp": "2024-03-30T12:00:00Z"
   },
   {
-    "service_a": "UserService",
-    "service_b": "PaymentService",
+    "service_1": "UserService",
+    "service_2": "PaymentService",
     "method": "CALL",
     "timestamp": "2024-03-30T12:05:00Z"
   }
