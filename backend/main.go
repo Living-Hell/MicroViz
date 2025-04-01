@@ -13,11 +13,11 @@ import (
 
 // Dependency struct
 type Dependency struct {
-	ID        uint   `gorm:"primaryKey"`
-	Service1  string `json:"service_1"`
-	Service2  string `json:"service_2"`
-	Method    string `json:"method"`
-	CreatedAt time.Time `json:"created_at" gorm:"default:CURRENT_TIMESTAMP"`
+    ID        uint      `gorm:"primaryKey"`
+    Service1  string    `json:"service_1" gorm:"column:service_1"`
+    Service2  string    `json:"service_2" gorm:"column:service_2"`
+    Method    string    `json:"method"`
+    CreatedAt time.Time `json:"created_at" gorm:"default:CURRENT_TIMESTAMP"`
 }
 
 // Database instance
@@ -72,9 +72,9 @@ func trackDependency(c *gin.Context) {
 	}
 
 	// Save to DB
-	var req_id = db.Create(&dependency)
+	db.Create(&dependency)
 
-	c.JSON(200, gin.H{"message": "Dependency tracked successfully", "request_id" : req_id})
+	c.JSON(200, gin.H{"message": "Dependency tracked successfully"})
 }
 
 func getDependencies(c *gin.Context) {
