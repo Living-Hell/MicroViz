@@ -13,11 +13,11 @@ import (
 
 // Dependency struct
 type Dependency struct {
-    ID        uint      `gorm:"primaryKey"`
-    Service1  string    `json:"service_1" gorm:"column:service_1"`
-    Service2  string    `json:"service_2" gorm:"column:service_2"`
-    Method    string    `json:"method"`
-    CreatedAt time.Time `json:"created_at" gorm:"default:CURRENT_TIMESTAMP"`
+	ID        uint      `gorm:"primaryKey"`
+	Service1  string    `json:"service_1" gorm:"column:service_1"`
+	Service2  string    `json:"service_2" gorm:"column:service_2"`
+	Method    string    `json:"method"`
+	CreatedAt time.Time `json:"created_at" gorm:"default:CURRENT_TIMESTAMP"`
 }
 
 // Database instance
@@ -36,7 +36,7 @@ func initDB() {
 		" password=" + os.Getenv("DB_PASSWORD") +
 		" dbname=" + os.Getenv("DB_NAME") +
 		" port=" + os.Getenv("DB_PORT") +
-		" sslmode=disable"
+		" sslmode=require target_session_attrs=read-write"
 
 	// Connect to database
 	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
