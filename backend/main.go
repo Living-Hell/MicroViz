@@ -24,10 +24,12 @@ type Dependency struct {
 var db *gorm.DB
 
 func initDB() {
-	// Load environment variables
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	// Only load .env in local environment
+	if _, exists := os.LookupEnv("RENDER"); !exists {
+		err := godotenv.Load()
+		if err != nil {
+			log.Println("⚠️ Warning: No .env file found, using system environment variables.")
+		}
 	}
 
 	// Database connection string
