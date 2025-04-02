@@ -62,8 +62,15 @@ func main() {
 	r.POST("/api/track", trackDependency)
 	r.GET("/api/dependencies", getDependencies)
 
+	// Get port from environment variables (for Render)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default for local development
+	}
+
 	// Start server
-	r.Run(":8080")
+	r.Run(":" + port)
+
 }
 
 func trackDependency(c *gin.Context) {
