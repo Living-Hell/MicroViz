@@ -58,6 +58,14 @@ func main() {
 	// Start Gin server
 	r := gin.Default()
 
+	// Default route ("/") for the backend
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Welcome to the MicroViz's Backend!",
+			"status":  "running",
+		})
+	})
+
 	// Routes
 	r.POST("/api/track", trackDependency)
 	r.GET("/api/dependencies", getDependencies)
