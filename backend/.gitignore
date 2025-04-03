@@ -1,0 +1,15 @@
+# Environment & secrets
+render.yaml
+.env
+
+# Build executables
+.exe
+
+# testing
+/coverage
+
+# production
+/build
+
+# Build file
+MicroViz.exe

@@ -1,6 +1,2 @@
-# Environment & secrets in backend directory
-/backend/render.yaml
-/backend/.env
-
-# Build executables in the backend directory
-backend/MicroViz.exe
+# log files
+.log
