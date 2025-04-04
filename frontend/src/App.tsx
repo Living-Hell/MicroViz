@@ -18,40 +18,46 @@ export default function MicroViz() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/dependencies").then((response) => {
-      console.log("data->", response.data);
-      const data = response.data;
-      const newNodes: Node[] = [];
-      const newEdges: Edge[] = [];
+    axios
+      .get("http://localhost:8080/api/dependencies")
+      .then((response: any) => {
+        console.log("Raw Data:", response.data);
 
-      data.forEach((dep: any, index: number) => {
-        const sourceNode = {
-          id: dep.service_1,
-          data: { label: dep.service_1 },
-          position: { x: index * 150, y: 100 },
-        };
-        const targetNode = {
-          id: dep.service_2,
-          data: { label: dep.service_2 },
-          position: { x: index * 150, y: 300 },
-        };
+        const data = response.data;
+        const newNodes: Node[] = [];
+        const newEdges: Edge[] = [];
 
-        if (!newNodes.find((n) => n.id === dep.service_1))
-          newNodes.push(sourceNode);
-        if (!newNodes.find((n) => n.id === dep.service_2))
-          newNodes.push(targetNode);
+        data.forEach((dep: any, index: number) => {
+          const sourceNode = {
+            id: dep.service_1,
+            data: { label: dep.service_1 },
+            position: { x: index * 150, y: 100 },
+          };
+          const targetNode = {
+            id: dep.service_2,
+            data: { label: dep.service_2 },
+            position: { x: index * 150, y: 300 },
+          };
 
-        newEdges.push({
-          id: `e${dep.service_1}-${dep.service_2}`,
-          source: dep.service_1,
-          target: dep.service_2,
-          label: dep.method,
+          if (!newNodes.find((n) => n.id === dep.service_1))
+            newNodes.push(sourceNode);
+          if (!newNodes.find((n) => n.id === dep.service_2))
+            newNodes.push(targetNode);
+
+          newEdges.push({
+            id: `e${dep.service_1}-${dep.service_2}`,
+            source: dep.service_1,
+            target: dep.service_2,
+            label: dep.method,
+          });
         });
-      });
 
-      setNodes(newNodes);
-      setEdges(newEdges);
-    });
+        console.log("Nodes:", newNodes);
+        console.log("Edges:", newEdges);
+
+        setNodes(newNodes);
+        setEdges(newEdges);
+      });
   }, []);
 
   const filteredNodes = nodes.filter((node) =>
@@ -76,7 +82,7 @@ export default function MicroViz() {
           <h3 className="font-bold mb-2">Services</h3>
           {filteredNodes.map((node) => (
             <Card
-              key={node.id}
+              key={node.data.label} //{node.id}
               className="mb-2 p-2 cursor-pointer hover:bg-gray-200"
             >
               <CardContent>{node.data.label}</CardContent>
